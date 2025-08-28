@@ -16,9 +16,39 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>src/img/clock.png</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/img/clock.png</locationURI>
+		</link>
+		<link>
+			<name>src/img/cuestion.png</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/img/cuestion.png</locationURI>
+		</link>
+		<link>
+			<name>src/img/flag.png</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/img/flag.png</locationURI>
+		</link>
+		<link>
+			<name>src/img/mine.png</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/img/mine.png</locationURI>
+		</link>
+		<link>
 			<name>src/img/number.png</name>
 			<type>1</type>
 			<locationURI>PROJECT_LOC/img/number.png</locationURI>
+		</link>
+		<link>
+			<name>src/img/skull.png</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/img/skull.png</locationURI>
+		</link>
+		<link>
+			<name>src/img/star.png</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/img/star.png</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

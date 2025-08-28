@@ -2,10 +2,14 @@ package mechanics;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+
+import file.Init_icons;
 
 
 public class Graphics {
@@ -14,9 +18,8 @@ public class Graphics {
     
     public static void loadBufferedImage() {
     	try {
-            buffer = ImageIO.read(Graphics.class.getResource("/img/number.png"));
+            buffer = ImageIO.read(Graphics.class.getResource(Init_icons.getIconPath((byte) 5)));
     	}catch(Exception ex) {
-    		//Mensaje de error
     		JOptionPane.showMessageDialog(null, "Archivo de imagen no encontrado", "Advertencia", 3);
     	}
     }
@@ -38,5 +41,24 @@ public class Graphics {
         g2d.dispose();
         
        return g2d; 
+    }    
+    
+    /**
+     * Establece a escala una imagen.
+     * @param i El archivo de imagen.
+     * @param width El ancho a escalar.
+     * @param height El alto a escalar.
+     * @return Un archivo de imagen escalado.
+     */
+    public static ImageIcon scaledImage(String imagePath, int width, int height){     
+    	try {
+            ImageIcon originalIcon = new ImageIcon(Graphics.class.getResource(imagePath));
+            Image scaled = originalIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            return new ImageIcon(scaled);
+        }catch(Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+
     }    
 }

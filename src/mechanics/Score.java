@@ -6,4 +6,5 @@ public class Score {
 		return field.Control.getDiscover()+"/"+field.Control.getTotalCells();
 	}
 	
+	
 }

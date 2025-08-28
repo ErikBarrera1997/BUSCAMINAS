@@ -7,7 +7,7 @@ public class Control {
      */	
 	protected int fieldWindowWidth ;
 	protected int fieldWindowHeigth ;
-	protected static double percent = 8.00;
+	protected static double percent = 20.00;
 	protected static int totalCells;
 	protected static int totalMines;
 	protected static int size = 36; //Tamanio del campo minado (un solo lado)

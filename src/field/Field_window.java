@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import file.Init_icons;
 import mechanics.Graphics;
 import mechanics.Score;
 import mechanics.Temporizer;
@@ -32,8 +33,8 @@ public class Field_window extends JFrame implements ActionListener, Time_interfa
 	     setLocationRelativeTo(null); // Centra la ventana
 	     setLayout(null);
 	     setResizable(false);
-	     initComponents();
-         
+	     initFiles(); 
+	     initComponents();       
     }
 	
 	private void initComponents() {
@@ -83,14 +84,15 @@ public class Field_window extends JFrame implements ActionListener, Time_interfa
          bottomPanel.add(discover);
         
          mechanics.Control.setPanel(new Generate_field(0, upperPanel.getY() + 1));
-         lowrPanel.add(mechanics.Control.getPanel());
-        
-         Graphics.loadBufferedImage();
+         lowrPanel.add(mechanics.Control.getPanel());      
          discover.setText(Score.getDiscover());
          setTimer();
 	}
 	
-	
+	private void initFiles() {
+		 Init_icons.initIconsRecord();
+		 Graphics.loadBufferedImage();
+	}
 	
 	
 	@Override

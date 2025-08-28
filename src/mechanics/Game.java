@@ -1,24 +1,24 @@
 package mechanics;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import effects.Explode;
+import effects.Reset;
 import field.Control;
+import file.Init_icons;
+import options.Options;
 
 public class Game {
-	
-	
-	public void isMined() {
-		
-	}
-	
-	
+			
 	private static void paintCells(JPanel p, int z) {
 		Point point = getZOrderCoordinates(z);
 		int mine = detect(z);
@@ -37,7 +37,7 @@ public class Game {
 	    int sense;
 	    int tZ;
 
-	    if(Control.getSquareState(z)) {
+	    if(Control.getSquareState(z)  && !Control.getMinesInField(z)) {
 		   List<Integer> ls = new ArrayList<>();
 		   ls.add(z);
 		   Control.setSquareState(z, false);
@@ -82,9 +82,6 @@ public class Game {
 				      Control.setSquareState(k, false);
 				      paintCells(p, k);				         
 		          }
-			      
-			     // d++;
-			      //Control.setDiscover(d);
 		     }
 		     
 		   }else {
@@ -92,8 +89,10 @@ public class Game {
 			   Control.setSquareState(z, false);
 		   }
 			 		
-		}else if(Control.getMinesInField(z)){
-			 System.out.println("KABOOOOOOOOOOOOOOOOOOOOOOOOOOOOM!!!!!");
+		}else if(Control.getMinesInField(z)  && !Control.getSquareState(z)){
+			 Thread t = new Thread(new Explode());
+	         t.start();
+			 //System.out.println(Control.getMinesInField(z)+" "+Control.getSquareState(z));
 		}else {
 			 System.out.println("Ya escarbaste aqui!!!!!");
 		}	  
@@ -109,17 +108,7 @@ public class Game {
 	 */
 	private static void filter(int[] l, int sense) {
 		 
-		 int[][] objetives = {
-			        {3},       // 0
-			        {1},       // 1
-			        {2},       // 2
-			        {0},       // 3
-			        {3, 5},    // 4
-			        {0, 2},    // 5
-			        {1, 5},    // 6
-			        {0, 4}     // 7
-		 };
-   
+		 int[][] objetives = {{3}, {1}, {2}, {0}, {3, 5}, {0, 2}, {1, 5}, {0, 4}};  
 	     int[] def = {0, 2, 6, 8};
 	     int[] indexObjetive = (sense >= 0 && sense < objetives.length)? objetives[sense]: def;
 
@@ -235,6 +224,7 @@ public class Game {
 	   	 
 	   return new Point(x,y); 
     }
-	
+
+
 	
 }

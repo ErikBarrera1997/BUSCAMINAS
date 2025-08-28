@@ -14,7 +14,7 @@ class Listener implements MouseListener{
 		Component source = (Component) e.getSource(); 
 		int zorder= Game.getZOrderFromCoordinates(source.getX(), source.getY()) -1;
 		Game.dig(mechanics.Control.getPanel(), zorder); 
-		System.out.println(Score.getDiscover());
+		//System.out.println(Score.getDiscover());
 	//	Point ZPoint = Game.getZOrderCoordinates(zorder);
 	    //int sense = Game.getSenseOfZOrder(ZPoint.getX(), ZPoint.getY());
 	  //  int[] l = Game.getPointsAroundZPoint(zorder, sense);

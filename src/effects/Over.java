@@ -24,12 +24,13 @@ public class Over extends Message implements Runnable, Time_interface{
 	 public void run() {		 
 		  setTimer();
 		  int limit = Control.getSize();//(int) Math.pow(Control.getSize(), 2);
+		  int totalLimit = limit*limit;
 		  int increment = 0;
 		  int i = 0;
 		  
 		  try {	
 			 while(i <= limit) {
-				 while(increment < limit*limit) {
+				 while(increment < totalLimit) {
 					 reveal(increment);	
 					 Control.setSquareState(increment, false);
 					 //System.out.println(increment);
@@ -41,8 +42,8 @@ public class Over extends Message implements Runnable, Time_interface{
 			   i++;	 //System.out.println(i);
 			 }
 			
-		  }catch (InterruptedException e) {		
-			  e.printStackTrace();
+		  }catch(InterruptedException e) {		
+			  Thread.currentThread().interrupt();
 		  }
 		  
 		  setMessage();

@@ -10,8 +10,8 @@ import javax.swing.JPanel;
 
 import effects.Over;
 import effects.Reset;
-import mechanics.Control;
 
+@SuppressWarnings("serial")
 public class Menu extends JMenuBar implements Options{
 
 	JPanel panel; //CONTENEDOR DEL JMENU
