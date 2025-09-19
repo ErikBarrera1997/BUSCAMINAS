@@ -2,7 +2,7 @@ package buscaminas_3_1;
 
 import field.Field_window;
 
-public class main {
+public class mainClass {
 
 	public static void main(String[] args) {
 		

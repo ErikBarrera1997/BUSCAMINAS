@@ -3,7 +3,6 @@ package mechanics;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
-@SuppressWarnings("serial")
 public class Temporizer extends Timer {
 
 	public int count = 0;

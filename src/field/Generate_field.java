@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 
 import mechanics.Generate_Mines;
 
-@SuppressWarnings("serial")
 public class Generate_field extends JPanel{
 		
    private int size = Control.getSize();
@@ -47,7 +46,7 @@ public class Generate_field extends JPanel{
                 if(Generate_Mines.setMine()){
                    Control.setMinesInField(cells, true);
                    Control.setSquareState(cells, false);   
-                   generatedMines++; cell.setBackground(Color.BLACK);
+                   generatedMines++; 
                 }else{
                    Control.setMinesInField(cells, false); 
                    Control.setSquareState(cells, true);

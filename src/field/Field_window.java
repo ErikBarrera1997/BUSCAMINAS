@@ -16,7 +16,6 @@ import mechanics.Graphics;
 import mechanics.Score;
 import mechanics.Temporizer;
 
-@SuppressWarnings("serial")
 public class Field_window extends JFrame implements ActionListener, Time_interface{
 
 	private JLabel lblUser;

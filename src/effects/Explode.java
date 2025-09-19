@@ -10,7 +10,6 @@ import mechanics.Game;
 import mechanics.Graphics;
 import messages.Message;
 
-@SuppressWarnings("serial")
 public class Explode extends Message implements Runnable{
 
 	@Override

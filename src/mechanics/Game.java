@@ -1,21 +1,14 @@
 package mechanics;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-
 import effects.Explode;
-import effects.Reset;
 import field.Control;
-import file.Init_icons;
-import options.Options;
 
 public class Game {
 			
