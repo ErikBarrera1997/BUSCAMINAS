@@ -7,11 +7,9 @@ import javax.swing.JPanel;
 
 import field.Control;
 import field.Generate_field;
-import field.Time_interface;
 import messages.Message;
 
-@SuppressWarnings("serial")
-public class Reset extends Message implements Runnable, Time_interface{
+public class Reset extends Message implements Runnable {
 
 	private JPanel container;
 	
@@ -27,7 +25,6 @@ public class Reset extends Message implements Runnable, Time_interface{
 	}
 
 	private void process() {
-		mechanics.Control.getTimer().stop();
 		int limit = Control.getSize();//(int) Math.pow(Control.getSize(), 2);
 		int increment = 0;
 		int i = 0;
@@ -55,7 +52,7 @@ public class Reset extends Message implements Runnable, Time_interface{
 		container.add(mechanics.Control.getPanel());
         container.revalidate();
 		mechanics.Control.getPanel().updateUI();
-		setTimer();
+
 	}
 	
 	@Override
@@ -76,9 +73,5 @@ public class Reset extends Message implements Runnable, Time_interface{
 		
 	}
 
-	@Override
-	public void setTimer() {
-		mechanics.Control.getTimer().restartCount();
-	}
 
 }

@@ -5,11 +5,9 @@ import java.awt.Point;
 
 
 import field.Control;
-import field.Time_interface;
 import messages.Message;
 
-@SuppressWarnings("serial")
-public class Over extends Message implements Runnable, Time_interface{
+public class Over extends Message implements Runnable {
 
      public Over() {
     	 super();
@@ -22,7 +20,6 @@ public class Over extends Message implements Runnable, Time_interface{
 
 	 @Override
 	 public void run() {		 
-		  setTimer();
 		  int limit = Control.getSize();//(int) Math.pow(Control.getSize(), 2);
 		  int totalLimit = limit*limit;
 		  int increment = 0;
@@ -54,10 +51,7 @@ public class Over extends Message implements Runnable, Time_interface{
 	      Over.showMessageDialog(null, "Eres la desgracia del mundo!", "Fin de partida", 3);		
 	 }
 
-	@Override
-	public void setTimer() {
-		  mechanics.Control.getTimer().stop();	
-	} 
+
 	 
 	
 }

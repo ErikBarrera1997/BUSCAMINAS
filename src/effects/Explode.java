@@ -10,11 +10,10 @@ import mechanics.Game;
 import mechanics.Graphics;
 import messages.Message;
 
-public class Explode extends Message implements Runnable{
+public class Explode extends Message implements Runnable {
 
 	@Override
 	public void run() {
-		  
 		  int limit = Control.getSize();//(int) Math.pow(Control.getSize(), 2);
 		  int totalLimit = limit*limit;
 		  final String imagePath = Init_icons.getIconPath((byte) 4);
@@ -47,5 +46,6 @@ public class Explode extends Message implements Runnable{
 	public void setMessage() {
 		Explode.showMessageDialog(null, "¡MORISTE!", "Fin de partida", 3); //esto debe de ser aleatorioooo		
 	}
+
 
 }

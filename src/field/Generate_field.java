@@ -43,21 +43,22 @@ public class Generate_field extends JPanel{
            this.add(cell);       
            cell.addMouseListener(new Listener());    
            
-                if(Generate_Mines.setMine()){
-                   Control.setMinesInField(cells, true);
-                   Control.setSquareState(cells, false);   
-                   generatedMines++; 
-                }else{
-                   Control.setMinesInField(cells, false); 
-                   Control.setSquareState(cells, true);
-                }
+               if(Generate_Mines.setMine()){
+                  Control.setMinesInField(cells, true);
+                  Control.setSquareState(cells, false);   
+                  generatedMines++; 
+               }else{
+                  Control.setMinesInField(cells, false); 
+                  Control.setSquareState(cells, true);
+               }
                 
-                cells++;
-                x += 15; 
-              if(x == (15 * Control.getSize())){ 
+               cells++;
+               x += 15;
+                
+               if(x == (15 * Control.getSize())){ 
                  y += 15; 
                  x = 0;  
-              }      
+               }      
               
         }while(cells < (size * size));  
                  

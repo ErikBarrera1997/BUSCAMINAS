@@ -4,8 +4,7 @@ import field.Field_window;
 
 public class mainClass {
 
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) {		
 		Field_window fw = new Field_window();
         fw.setVisible(true);
 	}

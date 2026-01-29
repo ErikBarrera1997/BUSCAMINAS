@@ -51,7 +51,7 @@ public class Game {
 				      
 				      if(n >= 0) {
 				         int d = detect(n); 
-			             if(d == 0) { //&& !specialDetect(n) haz que no detecte las diagonales
+			             if(d == 0) { 
 				           if(!ls.contains(n))	
 				               ls.add(n);					
 			             }
@@ -73,19 +73,21 @@ public class Game {
 			      for(int i = 0; i < l.length; i++) {				  
 				      k = l[i];
 				      Control.setSquareState(k, false);
-				      paintCells(p, k);				         
+				      paintCells(p, k);	 //SE DEBE DE FILTRAR LAS CASILLAS REPETIDAS EN l[I]
+					  System.out.println(i);
+					  //Score.setDiscover(i);			         
 		          }
 		     }
 		     
 		   }else {
 			   paintCells(p, z);
 			   Control.setSquareState(z, false);
+			    Score.setDiscover(1);	
 		   }
 			 		
 		}else if(Control.getMinesInField(z)  && !Control.getSquareState(z)){
 			 Thread t = new Thread(new Explode());
 	         t.start();
-			 //System.out.println(Control.getMinesInField(z)+" "+Control.getSquareState(z));
 		}else {
 			 System.out.println("Ya escarbaste aqui!!!!!");
 		}	  
