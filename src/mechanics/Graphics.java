@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -18,7 +19,7 @@ public class Graphics {
     
     public static void loadBufferedImage() {
     	try {
-            buffer = ImageIO.read(Graphics.class.getResource(Init_icons.getIconPath((byte) 5)));
+            buffer = ImageIO.read(new File(Init_icons.getIconPath((byte) 5)));
     	}catch(Exception ex) {
     		JOptionPane.showMessageDialog(null, "Archivo de imagen no encontrado", "Advertencia", 3);
     	}
@@ -52,7 +53,7 @@ public class Graphics {
      */
     public static ImageIcon scaledImage(String imagePath, int width, int height){     
     	try {
-            ImageIcon originalIcon = new ImageIcon(Graphics.class.getResource(imagePath));
+            ImageIcon originalIcon = new ImageIcon(new File(imagePath).getAbsolutePath());
             Image scaled = originalIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
             return new ImageIcon(scaled);
         }catch(Exception ex) {

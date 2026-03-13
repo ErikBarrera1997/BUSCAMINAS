@@ -11,8 +11,10 @@ public class Control {
 	protected static int totalCells;
 	protected static int totalMines;
 	protected static int size = 9; //Tamanio del campo minado (un solo lado)
-	protected static int time;
 	protected static int discover;
+	private static int seconds = 0;
+	private static int minutes = 1;
+	private static int counter = 1; //valor por defecto del incremento del temporizador.
 	
 	protected static boolean[] minesInField;
 	protected static boolean[] squareState;
@@ -96,14 +98,6 @@ public class Control {
 		Control.size = size;
 	}
 
-	public static int getTime() {
-		return time;
-	}
-
-	public static void setTime(int time) {
-		Control.time = time;
-	}
-
 	public static int getDiscover() {
 		return discover;
 	}
@@ -112,6 +106,27 @@ public class Control {
 		Control.discover = discover;
 	}
 	
-	
-	
+	public static int getSeconds() {
+		return seconds;
+	}
+
+	public static void setSeconds(int seconds) {
+		Control.seconds = seconds;
+	}
+
+	public static int getMinutes() {
+		return minutes;
+	}	
+
+	public static void setMinutes(int minutes) {
+		Control.minutes = minutes;
+	}	
+
+	public static int getCounter() {
+		return counter;
+	}
+
+	public static void setCounter(int counter) {
+		Control.counter = counter;
+	}
 }

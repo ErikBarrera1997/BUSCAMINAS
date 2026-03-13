@@ -22,7 +22,6 @@ public class Game {
 		}else {
 			p.getComponentAt(point).setBackground(Color.WHITE); 
 		}
-		
 	}
 	
 	public static void dig(JPanel p, int z) {
@@ -62,27 +61,26 @@ public class Game {
 		      }
 
 		   Iterator<Integer> it = ls.iterator(); //Todos los ceros
-		     while(it.hasNext()) {
-			      tZ = it.next();
-			      ZPoint = getZOrderCoordinates(tZ);
-			      sense = getSenseOfZOrder(ZPoint.getX(), ZPoint.getY());
-			      int[] l = getPointsAroundZPoint(tZ, sense);
-			      //int d = 0;
-			 
-			      int k;
-			      for(int i = 0; i < l.length; i++) {				  
-				      k = l[i];
-				      Control.setSquareState(k, false);
-				      paintCells(p, k);	 //SE DEBE DE FILTRAR LAS CASILLAS REPETIDAS EN l[I]
-					  System.out.println(i);
-					  //Score.setDiscover(i);			         
-		          }
-		     }
+		     	while(it.hasNext()) {
+			      	tZ = it.next();
+			      	ZPoint = getZOrderCoordinates(tZ);
+			      	sense = getSenseOfZOrder(ZPoint.getX(), ZPoint.getY());
+			      	int[] l = getPointsAroundZPoint(tZ, sense);
+
+			      	int k;
+			      	for(int i = 0; i < l.length; i++) {				  
+				    	k = l[i];
+				      	Control.setSquareState(k, false);
+				      	paintCells(p, k);	 //SE DEBE DE FILTRAR LAS CASILLAS REPETIDAS EN l[I]	  		         
+		          	}
+
+				   	Score.setDiscover(1);	
+		     	}
 		     
 		   }else {
 			   paintCells(p, z);
 			   Control.setSquareState(z, false);
-			    Score.setDiscover(1);	
+			   Score.setDiscover(1);	
 		   }
 			 		
 		}else if(Control.getMinesInField(z)  && !Control.getSquareState(z)){

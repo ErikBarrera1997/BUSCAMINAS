@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 import messages.Message;
 import time.Time_formatter;
 
-public class Custom_time_window extends JDialog{
+public class Countdown_window extends JDialog{
       
 	private JPanel panel;
 	private JLabel image;
@@ -22,7 +22,7 @@ public class Custom_time_window extends JDialog{
 	  
 	private messageEvents ms = new messageEvents();
 	  
-	public Custom_time_window(JPanel container) {
+	public Countdown_window(JPanel container) {
 		super();
 		setTitle("Contrarrelog");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -88,16 +88,12 @@ public class Custom_time_window extends JDialog{
 		public void setMessage() {
 			int o = 
 			    messageEvents.showConfirmDialog(null, "¿Empezar partida con el tiempo elejido?: "+
-			    Time_formatter.timeFormat(timeInput.getText()), "Atención", this.OK_CANCEL_OPTION, this.QUESTION_MESSAGE);	
+			    Time_formatter.timeFormat(timeInput.getText()), "Atención", messageEvents.OK_CANCEL_OPTION, messageEvents.QUESTION_MESSAGE);	
 				if(o == 0) {
-				     ///aqui va el reinicio de la partida + el ajuste del tiempo hijo de tu santa sede
-					//int time[] = Time_formatter.getTime(timeInput.getText());
-					mechanics.Control.getTemporizerTimer().reset();	
-					mechanics.Control.getTimer().start();	
-					//Control.setTemporizerTimer(null);
-					//Control.setCountdownTimer(new Countdown(time[0], time[1]));
-					//effects.Reset();
-					
+					mechanics.Control.getTimer().activateCountdown();
+					mechanics.Control.getTimer().resetTimers();
+					Time_formatter.setTime(timeInput.getText());
+					mechanics.Control.getTimer().setTimerByCountdown(field.Control.getMinutes(), field.Control.getSeconds());
 					dispose();
 					
 				}else {
@@ -105,10 +101,5 @@ public class Custom_time_window extends JDialog{
 				}
 		}
 		  
-	  }
-	 
-	  
-
-	  
-	  
+	}  
 }

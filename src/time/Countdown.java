@@ -11,7 +11,7 @@ public class Countdown implements Time_string_manager {
 	private final int initialSeconds;
 	private final int initialMinutes;
 
-	private boolean isRunning;
+	private boolean activated = false;
 
 	public Countdown(int seconds, int minutes) {	
 		this.minutes = minutes;
@@ -20,20 +20,20 @@ public class Countdown implements Time_string_manager {
 		this.initialMinutes = minutes;
 		this.initialSeconds = seconds;
 		
-		this.isRunning = true;
+		this.activated = true;
 	}
 	    
 	public String getTime(){
 
-		if(isRunning){
+		if(activated){
 			seconds--;
 	    	if(seconds < 0) {
 	    		minutes -= 1;
-	    	    seconds = 60;
+	    	    seconds = 59;
 	    	}
 
 	    	if(minutes < 0) {
-	    		isRunning = false;
+	    		activated = false;
 				minutes = 0;
 				seconds = 0;							
 	    	}
@@ -42,13 +42,17 @@ public class Countdown implements Time_string_manager {
 	    return minutes+":"+seconds;
 	}
 
-	public boolean isRunning() {
-		return isRunning;
+	public boolean isActivated() {
+		return activated;
 	}
 
 	public void reset() {
 		minutes = initialMinutes;
 		seconds = initialSeconds;
+	}
+
+	public void setActivated(boolean status){
+		activated = status;
 	}
 
 	@Override		

@@ -2,37 +2,43 @@ package mechanics;
 
 import java.awt.event.ActionListener;
 import time.Custom_timer;
-import time.Time_string_manager;
 
-public class Time extends Custom_timer implements Time_string_manager{
+/**
+ * Hilo principal del temporizador. Se encarga de actualizar el tiempo cada vez que se activa el timer.
+ * Desde aqui se controla el tiempo de ambos contadores, el temporizador y el conteo regresivo.
+ */
+public class Time extends Custom_timer {
 
-    public Time(int mode, int delayMillis, ActionListener listener) {
+    public Time(int delayMillis, ActionListener listener) {
         super(delayMillis, listener);
-        setTimeMode(mode);
+        setTimerByCountdown(0,1); //luego estableces un estandar para el contador.
+        setTimerByTemporizer(field.Control.getCounter());
     }
-
-    public void setTimeMode(int mode){
-        if(mode == 1) setTimerByTemporizer();
-        else if(mode == 2) setTimerByCountdown();
-    } 
-
-    @Override
-    public String getTimeString(){
-        return mechanics.Control.getTimeFromTimers();
-    }
-
+    
     @Override
     public void onTick() {
-        System.out.println("Tick: " + mechanics.Control.getTimeFromTimers());
-        if(mechanics.Control.getTemporizerTimer() != null) {
-           mechanics.Control.getTemporizerTimer().count();
-           mechanics.Control.setTimeFromTimers(mechanics.Control.getTemporizerTimer().getTimeString());
+        if(time.Control.getTemporizerTimer().isActivated()) {
+           time.Control.setTimeFromTimers(time.Control.getTemporizerTimer().getTimeString());
         }
-        else if(mechanics.Control.getCountdownTimer() != null) {
-            System.out.println("Tick: " + mechanics.Control.getCountdownTimer().getTimeString());
-           mechanics.Control.setTimeFromTimers(mechanics.Control.getCountdownTimer().getTimeString());
+        else if(time.Control.getCountdownTimer().isActivated()) {
+           time.Control.setTimeFromTimers(time.Control.getCountdownTimer().getTimeString());
         }
     }
 
+    public void resetTimers() {
+        time.Control.getTemporizerTimer().reset();
+        time.Control.getCountdownTimer().reset();
+    }
+
+    public void activateTemporizer() {
+        time.Control.getTemporizerTimer().setActivated(true);
+        time.Control.getCountdownTimer().setActivated(false);
+        time.Control.getTemporizerTimer().setIncrement(field.Control.getCounter());
+    }
+
+    public void activateCountdown() {
+        time.Control.getTemporizerTimer().setActivated(false);
+        time.Control.getCountdownTimer().setActivated(true);    
+    }
 
 }

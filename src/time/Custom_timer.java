@@ -10,8 +10,6 @@ import java.awt.event.ActionListener;
 public abstract class Custom_timer implements Time_manager{
 
     private final Timer timer;
-    Temporizer timeModeTemporizer;
-    Countdown timeModeCountdown;
 
     public Custom_timer(int delayMillis, ActionListener listener) {
         timer = new Timer(delayMillis, listener); 
@@ -32,15 +30,14 @@ public abstract class Custom_timer implements Time_manager{
     }
 
     @Override
-    public void setTimerByTemporizer() {
-        timeModeTemporizer = new Temporizer();
-        mechanics.Control.setTemporizerTimer(timeModeTemporizer);
+    public void setTimerByTemporizer(int counter) {
+        time.Control.setTemporizerTimer(new Temporizer(counter));
     }
 
     @Override
-    public void setTimerByCountdown() {
-        timeModeCountdown = new Countdown(3, 0);
-        mechanics.Control.setCountdownTimer(timeModeCountdown);
+    public void setTimerByCountdown(int seconds, int minutes) {
+        time.Control.setCountdownTimer(new Countdown(seconds, minutes));
+        System.out.println(seconds+":"+minutes);
     }
 
 

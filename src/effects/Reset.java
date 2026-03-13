@@ -25,25 +25,27 @@ public class Reset extends Message implements Runnable {
 	}
 
 	private void process() {
+		mechanics.Control.getTimer().stop();
+		mechanics.Control.getPanel().setEnabled(false); 
 		int limit = Control.getSize();//(int) Math.pow(Control.getSize(), 2);
 		int increment = 0;
 		int i = 0;
 		  
-		  try {	
-			 while(i <= limit) {
-				 while(increment < limit*limit) {
-					 reveal(increment);	
-					 increment += Control.getSize();
-				 }
+		  	try {	
+			 	while(i <= limit) {
+				 	while(increment < limit*limit) {
+					 	reveal(increment);	
+					 	increment += Control.getSize();
+				 	}
 				 
-			   Thread.sleep(100);	
-			   increment = i;
-			   i++;	 //System.out.println(i);
-			 }
+			   		Thread.sleep(100);	
+			   		increment = i;
+			   		i++;	 //System.out.println(i);
+			 	}
 			
-		  }catch (InterruptedException e) {		
-			  e.printStackTrace();
-		  }
+		  	}catch (InterruptedException e) {		
+				  e.printStackTrace();
+		  	}
 		  
 	    mechanics.Control.getPanel().removeAll();
 		mechanics.Control.getPanel().repaint();
@@ -52,7 +54,7 @@ public class Reset extends Message implements Runnable {
 		container.add(mechanics.Control.getPanel());
         container.revalidate();
 		mechanics.Control.getPanel().updateUI();
-
+		mechanics.Control.getTimer().start();
 	}
 	
 	@Override

@@ -66,16 +66,17 @@ public class Menu extends JMenuBar implements Options{
 				new ActionListener() {
 		            @Override
 		            public void actionPerformed(ActionEvent e) {
-		                
+		                Temporizer_window tw = new Temporizer_window(panel);
+						tw.setVisible(true);
 		            }
 		         }	
 		);
-		JMenuItem jmMode2 = new JMenuItem("Contrarrelog");
+		JMenuItem jmMode2 = new JMenuItem("Contrarreloj");
 		jmMode2.addActionListener(
 				new ActionListener() {
 		            @Override
 		            public void actionPerformed(ActionEvent e) {
-		                Custom_time_window t = new Custom_time_window(panel);
+		                Countdown_window t = new Countdown_window(panel);
 		                t.setVisible(true);
 		                
 		            }
@@ -107,16 +108,18 @@ public class Menu extends JMenuBar implements Options{
 	
 	@Override
 	public void reset() {
+		mechanics.Control.getTimer().stop();
 		Thread t = new Thread(new Reset(panel));
         t.start();
+		mechanics.Control.getTimer().resetTimers();
 		
 	}
 
 	@Override
 	public void end() {
+		mechanics.Control.getTimer().stop();
 		Thread t = new Thread(new Over());
-        t.start();
-		
+        t.start();		
 	}
 	
 	

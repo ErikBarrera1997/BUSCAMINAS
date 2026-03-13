@@ -1,8 +1,8 @@
 package time;
 
-public interface Time_manager {
+interface Time_manager {
 	
-	public void setTimerByTemporizer();
-	public void setTimerByCountdown();
+	public void setTimerByTemporizer(int counter);
+	public void setTimerByCountdown(int seconds, int minutes);
 	
 }

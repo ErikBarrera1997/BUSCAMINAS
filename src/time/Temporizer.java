@@ -6,10 +6,29 @@ package time;
  */
 public class Temporizer implements Time_string_manager {
 
-	public int count = 0;
+	private int count = 0;
+	private int increment; //valor por defecto.
+	private boolean activated = false;
 
-	public void count(){
-		count++;
+	public Temporizer(int increment) {
+		this.increment = increment;
+	}
+
+	public int getCount(){
+		count += increment;
+		return count;
+	}
+
+	public boolean isActivated(){
+		return activated;
+	}
+
+	public void setActivated(boolean status){
+		activated = status;
+	}
+
+	public void setIncrement(int increment) {
+		this.increment = increment;
 	}
 
 	public void reset(){
@@ -18,7 +37,7 @@ public class Temporizer implements Time_string_manager {
 	
 	@Override		
 	public String getTimeString(){
-       return String.valueOf(this.count);
+       return String.valueOf(getCount());
 	}
 
 }

@@ -19,7 +19,9 @@ public class Over extends Message implements Runnable {
 	 }
 
 	 @Override
-	 public void run() {		 
+	 public void run() {
+		  mechanics.Control.getTimer().stop();	
+		  mechanics.Control.getPanel().setEnabled(false);	 
 		  int limit = Control.getSize();//(int) Math.pow(Control.getSize(), 2);
 		  int totalLimit = limit*limit;
 		  int increment = 0;

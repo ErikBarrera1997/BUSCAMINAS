@@ -19,6 +19,7 @@ public class Field_window extends JFrame implements ActionListener {
 	private JLabel lblUser;
     private JLabel lblChronometer;
     private JLabel lblMines;
+    public static JLabel discover;
     //private JLabel lblMessage;
     //private JLabel lblCells;
 	
@@ -74,7 +75,7 @@ public class Field_window extends JFrame implements ActionListener {
         message.setOpaque(true);
         bottomPanel.add(message);
          
-        JLabel discover = new JLabel();
+        discover = new JLabel();
         discover.setHorizontalAlignment(SwingConstants.CENTER);
         discover.setBorder(new LineBorder(Color.BLACK, 2)); 
         discover.setBackground(Color.PINK);
@@ -85,7 +86,7 @@ public class Field_window extends JFrame implements ActionListener {
         lowrPanel.add(mechanics.Control.getPanel());      
         discover.setText(Score.getDiscover());
 
-        mechanics.Control.setTimer(1, 1000, this);
+        mechanics.Control.setTimer(1000, this);
         mechanics.Control.getTimer().start();
 	}
 	
@@ -98,7 +99,8 @@ public class Field_window extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) { ////ARREGLA ESTE DESMADREEEEEEEEE
         mechanics.Control.getTimer().onTick();
-		lblChronometer.setText(mechanics.Control.getTimeFromTimers());
+		lblChronometer.setText(time.Control.getTimeFromTimers());
+		discover.setText(Score.getDiscover());
         //if(mechanics.Control.getCountdownTimer() != null) {
           //  if(!mechanics.Control.getCountdownTimer().isRunning()) {
             //   timer.stop();
@@ -114,4 +116,3 @@ public class Field_window extends JFrame implements ActionListener {
 	}
 }
 ///TIENES QUE DETENER EL TIMER UNA VEZ FINALIZADO SU CONTEO
-
