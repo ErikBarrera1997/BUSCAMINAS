@@ -1,5 +1,7 @@
 package field;
 
+import javax.swing.JPanel;
+
 public class Control {
 
 	/**
@@ -7,14 +9,14 @@ public class Control {
      */	
 	protected int fieldWindowWidth ;
 	protected int fieldWindowHeigth ;
-	protected static double percent = 8.00;
+	protected static double percent = 10.00;
 	protected static int totalCells;
 	protected static int totalMines;
-	protected static int size = 9; //Tamanio del campo minado (un solo lado)
-	protected static int discover;
+	protected static int size = 36; //Tamanio del campo minado (un solo lado)
 	private static int seconds = 0;
 	private static int minutes = 1;
 	private static int counter = 1; //valor por defecto del incremento del temporizador.
+	private static JPanel container;
 	
 	protected static boolean[] minesInField;
 	protected static boolean[] squareState;
@@ -97,14 +99,6 @@ public class Control {
 	public static void setSize(int size) {
 		Control.size = size;
 	}
-
-	public static int getDiscover() {
-		return discover;
-	}
-
-	public static void setDiscover(int discover) {
-		Control.discover = discover;
-	}
 	
 	public static int getSeconds() {
 		return seconds;
@@ -129,4 +123,13 @@ public class Control {
 	public static void setCounter(int counter) {
 		Control.counter = counter;
 	}
+
+	public static JPanel getContainer() {
+		return container;
+	}
+
+	public static void setContainer(JPanel container) {		
+		Control.container = container;
+	}
+	
 }

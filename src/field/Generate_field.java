@@ -32,7 +32,7 @@ public class Generate_field extends JPanel{
       
         do{
            cell = new JLabel(); 
-           cell.setBackground(Color.GREEN);
+           cell.setBackground(Color.GRAY);
            cell.setSize(15, 15);
            cell.setOpaque(true);
            cell.setLocation(x, y);    

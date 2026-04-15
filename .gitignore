@@ -1,0 +1,17 @@
+# Ignore everything by default
+*
+
+# Allow traversing into directories
+!*/
+
+# Unignore Java source files
+!*.java
+
+# Unignore image resources (necessary for graphics)
+!*.png
+!*.jpg
+!*.jpeg
+!*.gif
+
+# Unignore the gitignore file itself
+!.gitignore

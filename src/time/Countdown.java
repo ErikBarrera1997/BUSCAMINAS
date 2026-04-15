@@ -1,5 +1,7 @@
 package time;
 
+import mechanics.Score;
+
 /**
  * Implementa un conteo regresivo. Una vez alcanzado el tiempo 0:0, se detiene.
  */
@@ -37,6 +39,8 @@ public class Countdown implements Time_string_manager {
 				minutes = 0;
 				seconds = 0;							
 	    	}
+
+			Score.setElapsedTime(1);
 		}
 
 	    return minutes+":"+seconds;

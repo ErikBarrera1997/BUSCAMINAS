@@ -6,8 +6,10 @@ import javax.swing.ImageIcon;
 
 import field.Control;
 import file.Init_icons;
+import file.Read;
 import mechanics.Game;
 import mechanics.Graphics;
+import mechanics.Score;
 import messages.Message;
 
 public class Explode extends Message implements Runnable {
@@ -20,6 +22,9 @@ public class Explode extends Message implements Runnable {
 		  
 		mechanics.Control.getTimer().stop(); 
 		mechanics.Control.getPanel().setEnabled(false);; 
+		Score.resetDiscover();
+		Score.resetElapsedTime();
+
 		try {	
 			for(int k = 0; k < totalLimit; k++) {
 				field.Control.setSquareState(k, false);					  
@@ -45,6 +50,6 @@ public class Explode extends Message implements Runnable {
 
 	@Override 
 	public void setMessage() {
-		Explode.showMessageDialog(null, "¡MORISTE!", "Fin de partida", 3); //esto debe de ser aleatorioooo		
+		Explode.showMessageDialog(null, "<html><center>" + Read.getRandomText(false) +"<br>Puntuación: " + Score.getScore() +"</br>" + "</center></html>", "Fin de partida", 3); 	
 	}
 }

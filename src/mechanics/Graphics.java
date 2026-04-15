@@ -22,27 +22,30 @@ public class Graphics {
             buffer = ImageIO.read(new File(Init_icons.getIconPath((byte) 5)));
     	}catch(Exception ex) {
     		JOptionPane.showMessageDialog(null, "Archivo de imagen no encontrado", "Advertencia", 3);
-    	}
+    	    //Haz algo para manejar la ausencia del archivo, como cargar una imagen predeterminada o salir del programa.
+        }
     }
     
     /**
-     * Dibuja uno de los numeros en number.png
-     * @param g El entorno Graphics.
-     * @param p Un número que indica cuantas minas se tienen, y de acuerdo a eso se asigna el número.
-     * @param x Posición x de la casilla. 
-     * @param y Posición y de la casilla. 
-     * @return El fragmento de la imagen de acuerdo al número dado por las minas.
+     * Creates an ImageIcon of a number by cropping it from a sprite sheet.
+     * This icon can be set on a JLabel and will be properly repainted.
+     * The previous implementation was causing icons to disappear on window minimize.
+     * @param p The number to create an icon for (1-8). If p is 0 or less, an empty icon is created.
+     * @return An ImageIcon for the given number.
      */
-    public static Graphics2D drawImage(Graphics2D g, int p, int x, int y){     
-        Graphics2D g2d = g;    
-        //g.translate(x, y);
-        g.setPaint(new Color(242, 242, 242));
-        g.fillRect(1, 1, 13, 13); 
-        g2d.drawImage(buffer, 0, 0, 15, 15, (p*15)-15, 0, p*15, 15, null);              
+    public static ImageIcon drawImage(int p){
+        BufferedImage numberImage = new BufferedImage(15, 15, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = numberImage.createGraphics();
+
+        g2d.setPaint(new Color(242, 242, 242));
+        g2d.fillRect(0, 0, 15, 15);
+
+        if (p > 0) {
+            g2d.drawImage(buffer, 0, 0, 15, 15, (p * 15) - 15, 0, p * 15, 15, null);
+        }
         g2d.dispose();
-        
-       return g2d; 
-    }    
+        return new ImageIcon(numberImage);
+    }
     
     /**
      * Establece a escala una imagen.

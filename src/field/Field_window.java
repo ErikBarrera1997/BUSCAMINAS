@@ -10,8 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
-import file.Init_icons;
-import mechanics.Graphics;
 import mechanics.Score;
 
 public class Field_window extends JFrame implements ActionListener {
@@ -31,9 +29,7 @@ public class Field_window extends JFrame implements ActionListener {
 	    setLocationRelativeTo(null); 
 	    setLayout(null);
 	    setResizable(false);
-	    initFiles(); 
-	    initComponents();  
-        System.out.println("Ventana de campo iniciada.");   
+	    initComponents();    
     }
 	
 	private void initComponents() {
@@ -45,7 +41,7 @@ public class Field_window extends JFrame implements ActionListener {
 	    upperPanel.add(lblUser);
 	    upperPanel.add(lblChronometer);
 	    upperPanel.add(lblMines);
-        upperPanel.setBackground(Color.PINK);
+        //upperPanel.setBackground(Color.PINK);
         upperPanel.setBounds(0, 0, this.getWidth(), 20);
         add(upperPanel);
         
@@ -55,7 +51,8 @@ public class Field_window extends JFrame implements ActionListener {
         lowrPanel.setBounds(0, upperPanel.getY()+20, this.getWidth(), 550);
         add(lowrPanel);
         
-        setJMenuBar(new options.Menu(lowrPanel));
+        Control.setContainer(lowrPanel);
+        setJMenuBar(new options.Menu(Control.getContainer()));
         
         JPanel bottomPanel = new JPanel(new GridLayout(1, 2));
         //lblMessage = new JLabel("Null", SwingConstants.CENTER);
@@ -63,7 +60,7 @@ public class Field_window extends JFrame implements ActionListener {
 	    upperPanel.add(lblUser);
 	    upperPanel.add(lblChronometer);
 	    upperPanel.add(lblMines);
-        bottomPanel.setBackground(Color.YELLOW);
+        //bottomPanel.setBackground(Color.YELLOW);
         bottomPanel.setOpaque(true);
         bottomPanel.setBounds(0, lowrPanel.getY()+550, this.getWidth(), 20);
         add(bottomPanel);
@@ -71,14 +68,14 @@ public class Field_window extends JFrame implements ActionListener {
         JLabel message = new JLabel();
         message.setHorizontalAlignment(SwingConstants.CENTER);
         message.setBorder(new LineBorder(Color.BLACK, 2)); 
-        message.setBackground(Color.CYAN);
+        //message.setBackground(Color.CYAN);
         message.setOpaque(true);
         bottomPanel.add(message);
          
         discover = new JLabel();
         discover.setHorizontalAlignment(SwingConstants.CENTER);
         discover.setBorder(new LineBorder(Color.BLACK, 2)); 
-        discover.setBackground(Color.PINK);
+        //discover.setBackground(Color.PINK);
         discover.setOpaque(true);
         bottomPanel.add(discover);
         
@@ -89,30 +86,11 @@ public class Field_window extends JFrame implements ActionListener {
         mechanics.Control.setTimer(1000, this);
         mechanics.Control.getTimer().start();
 	}
-	
-	private void initFiles() {
-		Init_icons.initIconsRecord();
-		Graphics.loadBufferedImage();
-	}
-	
-	
+		
 	@Override
-	public void actionPerformed(ActionEvent e) { ////ARREGLA ESTE DESMADREEEEEEEEE
+	public void actionPerformed(ActionEvent e) { 
         mechanics.Control.getTimer().onTick();
 		lblChronometer.setText(time.Control.getTimeFromTimers());
 		discover.setText(Score.getDiscover());
-        //if(mechanics.Control.getCountdownTimer() != null) {
-          //  if(!mechanics.Control.getCountdownTimer().isRunning()) {
-            //   timer.stop();
-              //  effects.Explode explode = new effects.Explode(); 
-              //  explode.run();   
-           // }
-        //}else{
-          //  if(mechanics.Control.getTemporizerTimer() != null) {
-            //   timer.stop();
-
-            //}
-       // }
 	}
 }
-///TIENES QUE DETENER EL TIMER UNA VEZ FINALIZADO SU CONTEO

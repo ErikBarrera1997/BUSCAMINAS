@@ -1,13 +1,15 @@
 package mechanics;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
+import java.awt.Component;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import effects.Explode;
+import effects.Winner;
 import field.Control;
 
 public class Game {
@@ -15,13 +17,17 @@ public class Game {
 	private static void paintCells(JPanel p, int z) {
 		Point point = getZOrderCoordinates(z);
 		int mine = detect(z);
+		Component cell = p.getComponentAt(point);
 
-		if(mine > 0) {
-	        p.getComponentAt(point).paint(Graphics.drawImage((Graphics2D) p.getComponentAt(point).getGraphics(), 
-	        		mine, (int)point.getX(), (int)point.getY()));	
-		}else {
-			p.getComponentAt(point).setBackground(Color.WHITE); 
+		if (cell instanceof JLabel) {
+			JLabel label = (JLabel) cell;
+			if (mine > 0) {
+				label.setIcon(Graphics.drawImage(mine)); //Score.setDiscover(1);	
+			} else {
+				label.setBackground(Color.WHITE);
+			}
 		}
+		Score.setDiscover(1);	
 	}
 	
 	public static void dig(JPanel p, int z) {
@@ -29,11 +35,11 @@ public class Game {
 	    int sense;
 	    int tZ;
 
-	    if(Control.getSquareState(z)  && !Control.getMinesInField(z)) {
+		boolean condition = Control.getSquareState(z)  && !Control.getMinesInField(z);
+	    if(condition) {
 		   List<Integer> ls = new ArrayList<>();
 		   ls.add(z);
-		   Control.setSquareState(z, false);
-		
+
 		   //Detección de ceros solamente
 		   if(detect(z) == 0) {
 		   int c = 0; 	
@@ -48,13 +54,13 @@ public class Game {
 			      for(int i = 0; i < l.length; i++) {
 				      int n = l[i];
 				      
-				      if(n >= 0) {
-				         int d = detect(n); 
-			             if(d == 0) { 
+				    if(n >= 0) {
+				        int d = detect(n); 
+			            if(d == 0) { 
 				           if(!ls.contains(n))	
 				               ls.add(n);					
-			             }
-			          }
+			            }
+			        }
 			      }
 		
 		        c++;	
@@ -70,15 +76,14 @@ public class Game {
 			      	int k;
 			      	for(int i = 0; i < l.length; i++) {				  
 				    	k = l[i];
-				      	Control.setSquareState(k, false);
-				      	paintCells(p, k);	 //SE DEBE DE FILTRAR LAS CASILLAS REPETIDAS EN l[I]	  		         
-		          	}
+						if(Control.getSquareState(k))
+							paintCells(p, k);	
 
-				   	Score.setDiscover(1);	
-		     	}
-		     
+				      	Control.setSquareState(k, false);												      		  		         
+		          	}
+		     	}		   
 		   }else {
-			   paintCells(p, z);
+		 	   paintCells(p, z);
 			   Control.setSquareState(z, false);
 			   Score.setDiscover(1);	
 		   }
@@ -87,8 +92,13 @@ public class Game {
 			 Thread t = new Thread(new Explode());
 	         t.start();
 		}else {
-			 System.out.println("Ya escarbaste aqui!!!!!");
-		}	  
+			System.out.println("Ya escarbaste aqui!!!!!");
+		}	
+		
+		if(Score.isWin() && condition){
+			Winner w = new Winner(field.Control.getContainer());
+			w.showMessage();
+		}
 	   
 	}
 	
@@ -101,13 +111,13 @@ public class Game {
 	 */
 	private static void filter(int[] l, int sense) {
 		 
-		 int[][] objetives = {{3}, {1}, {2}, {0}, {3, 5}, {0, 2}, {1, 5}, {0, 4}};  
-	     int[] def = {0, 2, 6, 8};
-	     int[] indexObjetive = (sense >= 0 && sense < objetives.length)? objetives[sense]: def;
+		int[][] objetives = {{3}, {1}, {2}, {0}, {3, 5}, {0, 2}, {1, 5}, {0, 4}};  
+	    int[] def = {0, 2, 6, 8};
+	    int[] indexObjetive = (sense >= 0 && sense < objetives.length)? objetives[sense]: def;
 
-	     for(int idx : indexObjetive) {
-			  l[idx] = -1;
-	     }
+	    for(int idx : indexObjetive) {
+			l[idx] = -1;
+	    }
 			
 	}
 		
@@ -145,35 +155,24 @@ public class Game {
 	   return zPoints; 	
 	}
 	
-	
+	public static int getSenseOfZOrder(double x, double y) {
+		int limit = (Control.getSize() * 15) - 15;
 
-	//OPTIMIZA ESTOOOOOOOOOOOOOOOOOOOOOO
-	public static int getSenseOfZOrder(double x, double y){
-       
-       int limit = (Control.getSize() *15) - 15;
-       int sense;
-       
-       if(x == 0 && y == 0){
-    	   sense = 0;             //Esquina superior izquierda.   impares 
-       }else if(x == 0 && y == limit){
-    	   sense = 1;       //Esquina inferior izquierda.  impares
-       }else if(x == limit && y == 0){
-    	   sense = 2;       //Esquina superior derecha    pares 
-       }else if(x == limit && y == limit){
-    	   sense = 3;       //Esquina inferior derecha.  pares
-       }else if(x != 0 && x != limit && y == 0){
-    	   sense = 4;         //Arriba.  impares
-       }else if(x != 0 && x != limit && y == limit){
-    	   sense = 5;       //Abajo.  pares y 0
-       }else if(x == 0 && y != 0 && y != limit){
-    	   sense = 6;       //Izquierda. impares
-       }else if(x == limit && y != 0 && y != limit){
-    	   sense = 7;      //Derecha. pares
-       }else{
-    	   sense = 8;    //Recuadro. pares
-       }     
-    
-      return sense; 
+		boolean isLeft = (x == 0);
+		boolean isRight = (x == limit);
+		boolean isTop = (y == 0);
+		boolean isBottom = (y == limit);
+
+		if (isTop) {
+			return isLeft ? 0 : (isRight ? 2 : 4);
+		}
+		if (isBottom) {
+			return isLeft ? 1 : (isRight ? 3 : 5);
+		}
+		if (isLeft) return 6;
+		if (isRight) return 7;
+
+		return 8;
    }
 	
 	public static int getZOrderFromCoordinates(int x, int y) {

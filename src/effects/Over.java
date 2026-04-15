@@ -1,8 +1,10 @@
 package effects;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Point;
 
+import javax.swing.JLabel;
 
 import field.Control;
 import messages.Message;
@@ -15,30 +17,31 @@ public class Over extends Message implements Runnable {
 	
 	 public void reveal(int z) {	
 		  Point p = mechanics.Game.getZOrderCoordinates(z);
-		  mechanics.Control.getPanel().getComponentAt(p).setBackground(Color.BLACK);	
+		  Component c = mechanics.Control.getPanel().getComponentAt(p);
+		  c.setBackground(Color.BLACK);
+		  
+		  if (c instanceof JLabel) {
+			  ((JLabel) c).setIcon(null);
+		  }
 	 }
 
 	 @Override
 	 public void run() {
 		  mechanics.Control.getTimer().stop();	
 		  mechanics.Control.getPanel().setEnabled(false);	 
-		  int limit = Control.getSize();//(int) Math.pow(Control.getSize(), 2);
+		  int limit = Control.getSize();
 		  int totalLimit = limit*limit;
-		  int increment = 0;
-		  int i = 0;
 		  
 		  try {	
-			 while(i <= limit) {
+			 for (int i = 0; i < limit; i++) {
+				 int increment = i;
 				 while(increment < totalLimit) {
 					 reveal(increment);	
 					 Control.setSquareState(increment, false);
-					 //System.out.println(increment);
 					 increment += Control.getSize();
 				 }
 				 
 			   Thread.sleep(100);	
-			   increment = i;
-			   i++;	 //System.out.println(i);
 			 }
 			
 		  }catch(InterruptedException e) {		
@@ -50,7 +53,8 @@ public class Over extends Message implements Runnable {
 
 	 @Override
 	 public void setMessage() {
-	      Over.showMessageDialog(null, "Eres la desgracia del mundo!", "Fin de partida", 3);		
+	      Over.showMessageDialog(null, "Eres la desgracia del mundo!", 
+		  "Fin de partida", 3);		
 	 }
 
 

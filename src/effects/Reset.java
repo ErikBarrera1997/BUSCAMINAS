@@ -1,8 +1,10 @@
 package effects;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Point;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import field.Control;
@@ -20,27 +22,28 @@ public class Reset extends Message implements Runnable {
 	
 	private void reveal(int z) {	
 		Point p = mechanics.Game.getZOrderCoordinates(z);
-		mechanics.Control.getPanel().getComponentAt(p).setBackground(Color.WHITE);
-		//mechanics.Control.getPanel().removeAll();	
+		Component c = mechanics.Control.getPanel().getComponentAt(p);
+		c.setBackground(Color.WHITE);
+		
+		if (c instanceof JLabel) {
+			((JLabel) c).setIcon(null);
+		}
 	}
 
 	private void process() {
 		mechanics.Control.getTimer().stop();
 		mechanics.Control.getPanel().setEnabled(false); 
-		int limit = Control.getSize();//(int) Math.pow(Control.getSize(), 2);
-		int increment = 0;
-		int i = 0;
+		int limit = Control.getSize();
 		  
 		  	try {	
-			 	while(i <= limit) {
+			 	for (int i = 0; i < limit; i++) {
+			 		int increment = i;
 				 	while(increment < limit*limit) {
 					 	reveal(increment);	
 					 	increment += Control.getSize();
 				 	}
 				 
 			   		Thread.sleep(100);	
-			   		increment = i;
-			   		i++;	 //System.out.println(i);
 			 	}
 			
 		  	}catch (InterruptedException e) {		
